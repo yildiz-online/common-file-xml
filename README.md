@@ -10,15 +10,15 @@ The common file library is a set of utility and helper classes to handle XML doc
 
 ## Requirements
 
-To build this module, you will need a java 9 JDK and Maven 3.
+To build this module, you will need the latest Java JDK and Maven 3.
 
 ## Coding Style and other information
 
 Project website:
-http://www.yildiz-games.be
+https://engine.yildiz-games.be
 
 Issue tracker:
-https://yildiz.atlassian.net/browse/YCFX
+https://yildiz.atlassian.net/browse/YE
 
 Wiki:
 https://yildiz.atlassian.net/wiki
