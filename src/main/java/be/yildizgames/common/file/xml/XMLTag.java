@@ -44,6 +44,10 @@ public abstract class XMLTag {
         return name;
     }
 
+    public final String generate() {
+        return this.generate(new StringBuilder());
+    }
+
     public abstract String generate(final StringBuilder builder);
 
 }

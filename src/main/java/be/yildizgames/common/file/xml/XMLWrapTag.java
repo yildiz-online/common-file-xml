@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * @author Grégory Van den Borre
  */
-public final class XMLWrapTag extends XMLTag {
+public class XMLWrapTag extends XMLTag {
 
     private final List<XMLTag> children;
 
@@ -38,12 +38,12 @@ public final class XMLWrapTag extends XMLTag {
         this.children = new ArrayList<>();
     }
 
-    public void addChild(final XMLTag tag) {
+    public final void addChild(final XMLTag tag) {
         this.children.add(tag);
     }
 
     @Override
-    public String generate(final StringBuilder builder) {
+    public final String generate(final StringBuilder builder) {
         builder.append("<");
         builder.append(this.getName());
         builder.append(">");
