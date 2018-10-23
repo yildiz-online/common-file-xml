@@ -1,7 +1,7 @@
 <!--
   ~ This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
   ~
-  ~ Copyright (c) 2018 GrÃ©gory Van den Borre
+  ~ Copyright (c) 2018 Grégory Van den Borre
   ~
   ~ More infos available: https://www.yildiz-games.be
   ~
@@ -50,6 +50,11 @@
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-file</artifactId>
       <version>1.0.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.4.0-b180830.0438</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
