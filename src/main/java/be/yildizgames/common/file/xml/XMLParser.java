@@ -40,6 +40,7 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Path;
 
 /**
  * Helper class to get Document from an XML file.
@@ -80,9 +81,24 @@ public final class XMLParser {
      * @param file XML file.
      * @return The generated Document to parse.
      */
+    @Deprecated(since = "1.0.2", forRemoval = true)
     public static Document getDocument(final File file) {
         try {
             return XMLParser.documentFactory.parse(file);
+        } catch (SAXException | IOException e) {
+            throw new ResourceCorruptedException(e);
+        }
+    }
+
+    /**
+     * Create an usable Document from a XML file.
+     *
+     * @param file XML file.
+     * @return The generated Document to parse.
+     */
+    public static Document getDocument(final Path file) {
+        try {
+            return XMLParser.documentFactory.parse(file.toFile());
         } catch (SAXException | IOException e) {
             throw new ResourceCorruptedException(e);
         }
@@ -95,11 +111,32 @@ public final class XMLParser {
      * @param schemaFile File to use for validation.
      * @return The generated Document to parse.
      */
+    @Deprecated(since = "1.0.2", forRemoval = true)
     public static Document getDocument(final File file, final File schemaFile) {
         try {
             Document doc = XMLParser.documentFactory.parse(file);
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(schemaFile);
+            Validator validator = schema.newValidator();
+            validator.validate(new DOMSource(doc));
+            return doc;
+        } catch (SAXException | IOException e) {
+            throw new ResourceCorruptedException(e);
+        }
+    }
+
+    /**
+     * Create an usable Document from a XML file and check it with a schema.
+     *
+     * @param file       XML file.
+     * @param schemaFile File to use for validation.
+     * @return The generated Document to parse.
+     */
+    public static Document getDocument(final Path file, final Path schemaFile) {
+        try {
+            Document doc = XMLParser.documentFactory.parse(file.toFile());
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(schemaFile.toFile());
             Validator validator = schema.newValidator();
             validator.validate(new DOMSource(doc));
             return doc;
