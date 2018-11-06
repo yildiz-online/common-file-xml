@@ -24,6 +24,7 @@
 package be.yildizgames.common.file.xml;
 
 import be.yildizgames.common.exception.technical.ResourceCorruptedException;
+import be.yildizgames.common.file.xml.exception.InvalidXmlException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -155,7 +156,7 @@ public final class XMLParser {
         try {
             return XMLParser.documentFactory.parse(new InputSource(new StringReader(doc)));
         } catch (SAXException | IOException e) {
-            throw new IllegalArgumentException(e);
+            throw new InvalidXmlException(e);
         }
     }
 
