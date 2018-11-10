@@ -23,7 +23,8 @@
 
 package be.yildizgames.common.file.xml;
 
-import java.security.InvalidParameterException;
+import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.file.exception.FileCorruptionException;
 
 /**
  * @author Grégory Van den Borre
@@ -34,8 +35,9 @@ public abstract class XMLTag {
 
     protected XMLTag(final String name) {
         super();
+        ImplementationException.throwForNull(name);
         if (name.contains("<") || name.contains(">") || name.contains("&") || name.contains("\"") || name.contains("'")) {
-            throw new InvalidParameterException(name + "contains XML forbidden character(<,>,&,\",'");
+            throw new FileCorruptionException(name + "contains XML forbidden character(<,>,&,\",'");
         }
         this.name = name;
     }

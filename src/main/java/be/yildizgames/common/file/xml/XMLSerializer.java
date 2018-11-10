@@ -24,20 +24,19 @@
 package be.yildizgames.common.file.xml;
 
 
-import be.yildizgames.common.exception.technical.ResourceCorruptedException;
-import be.yildizgames.common.exception.technical.ResourceMissingException;
-import be.yildizgames.common.file.FileCreationException;
 import be.yildizgames.common.file.Serializer;
+import be.yildizgames.common.file.exception.FileCorruptionException;
+import be.yildizgames.common.file.exception.FileCreationException;
+import be.yildizgames.common.file.exception.FileMissingException;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Use XML to serialize and deserialize objects.
@@ -50,14 +49,14 @@ public final class XMLSerializer<T> implements Serializer<T> {
     /**
      * File to use to read/write object.
      */
-    private final File file;
+    private final Path file;
 
     /**
      * Full constructor.
      *
      * @param xmlFile Initialize the file to use.
      */
-    public XMLSerializer(final File xmlFile) {
+    public XMLSerializer(final Path xmlFile) {
         super();
         this.file = xmlFile;
     }
@@ -66,7 +65,7 @@ public final class XMLSerializer<T> implements Serializer<T> {
      * Throw an exception with file not found.
      */
     private void fileNotFound() {
-        throw new ResourceMissingException(this.file + "was not found");
+        throw new FileMissingException(this.file + "was not found");
     }
 
     /**
@@ -79,16 +78,18 @@ public final class XMLSerializer<T> implements Serializer<T> {
     public T readFromFile() {
         InputStream fis = null;
         try {
-            if (!this.file.exists()) {
+            if (Files.notExists(this.file)) {
                 this.fileNotFound();
             }
-            fis = new FileInputStream(this.file);
+            fis = Files.newInputStream(this.file);
         } catch (FileNotFoundException e) {
             this.fileNotFound();
+        } catch (IOException e) {
+            throw new FileCorruptionException("XML configuration file corrupted.");
         }
         try (XMLDecoder decode = new XMLDecoder(fis)) {
             decode.setExceptionListener(e -> {
-                throw new ResourceCorruptedException("XML configuration file corrupted.");
+                throw new FileCorruptionException("XML configuration file corrupted.");
             });
             return (T) decode.readObject();
         }
@@ -101,7 +102,7 @@ public final class XMLSerializer<T> implements Serializer<T> {
      */
     @Override
     public void writeToFile(final T o) {
-        try (OutputStream fos = new FileOutputStream(this.file)) {
+        try (OutputStream fos = Files.newOutputStream(this.file)) {
             try (XMLEncoder encoder = new XMLEncoder(fos)) {
                 encoder.setExceptionListener(FileCreationException::new);
                 encoder.writeObject(o);
