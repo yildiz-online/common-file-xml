@@ -35,78 +35,78 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-final class XMLValueTagTest {
+public final class XMLValueTagTest {
 
     @Test
-    void testGenerate() {
+    public void testGenerate() {
         XMLTag tag = new XMLValueTag("a name", "a value");
         String result = "<a name>a value</a name>";
         assertEquals(result, tag.generate(new StringBuilder()));
     }
 
     @Test
-    void testXMLValueTagName() {
+    public void testXMLValueTagName() {
         XMLTag tag = new XMLValueTag("name", "value");
         assertEquals("name", tag.getName());
     }
 
     @Test
-    void testXMLValueTagName1() {
+    public void testXMLValueTagName1() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a<a", "value"));
     }
 
     @Test
-    void testXMLValueTagName2() {
+    public void testXMLValueTagName2() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a>a", "value"));
     }
 
     @Test
-    void testXMLValueTagName3() {
+    public void testXMLValueTagName3() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a&a", "value"));
     }
 
     @Test
-    void testXMLValueTagName4() {
+    public void testXMLValueTagName4() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a'a", "value"));
     }
 
     @Test
-    void testXMLValueTagName5() {
+    public void testXMLValueTagName5() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a\"a", "value"));
     }
 
     @Test
-    void testXMLValueTagNameNull() {
+    public void testXMLValueTagNameNull() {
         assertThrows(ImplementationException.class, () -> new XMLValueTag(null, "value"));
     }
 
     @Test
-    void testXMLValueTagValue() {
+    public void testXMLValueTagValue() {
         assertThrows(ImplementationException.class, () -> new XMLValueTag("name", null));
     }
 
     @Test
-    void testXMLValueTagValue1() {
+    public void testXMLValueTagValue1() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a<a"));
     }
 
     @Test
-    void testXMLValueTagValue2() {
+    public void testXMLValueTagValue2() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a>a"));
     }
 
     @Test
-    void testXMLValueTagValue3() {
+    public void testXMLValueTagValue3() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a&a"));
     }
 
     @Test
-    void testXMLValueTagValue4() {
+    public void testXMLValueTagValue4() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a'a"));
     }
 
     @Test
-    void testXMLValueTagValue5() {
+    public void testXMLValueTagValue5() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a\"a"));
     }
 

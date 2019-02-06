@@ -34,10 +34,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class XMLWrapTagTest {
+public class XMLWrapTagTest {
 
     @Test
-    void testGenerate() {
+    public void testGenerate() {
         XMLWrapTag tag = new XMLWrapTag("name");
         String result = "<name></name>";
         assertEquals(result, tag.generate(new StringBuilder()));
@@ -50,7 +50,7 @@ class XMLWrapTagTest {
     }
 
     @Test
-    void testXMLWrapTag() {
+    public void testXMLWrapTag() {
         XMLWrapTag tag = new XMLWrapTag("name");
         assertEquals("name", tag.getName());
         assertThrows(ImplementationException.class, () -> new XMLWrapTag(null));
