@@ -34,6 +34,7 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -100,6 +101,8 @@ public final class XMLParser {
         try {
             Document doc = XMLParser.documentFactory.parse(file.toFile());
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            schemaFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+            schemaFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
             Schema schema = schemaFactory.newSchema(schemaFile.toFile());
             Validator validator = schema.newValidator();
             validator.validate(new DOMSource(doc));
