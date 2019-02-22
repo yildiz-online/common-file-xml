@@ -41,6 +41,20 @@ public final class XMLValueTagTest {
     public void testGenerate() {
         XMLTag tag = new XMLValueTag("a name", "a value");
         String result = "<a name>a value</a name>";
+        assertEquals(result, tag.generate());
+    }
+
+    @Test
+    public void testGenerateLong() {
+        XMLTag tag = new XMLValueTag("a name", "123");
+        String result = "<a name>123</a name>";
+        assertEquals(result, tag.generate());
+    }
+
+    @Test
+    public void testGenerateObject() {
+        XMLTag tag = new XMLValueTag("a name", Boolean.TRUE);
+        String result = "<a name>true</a name>";
         assertEquals(result, tag.generate(new StringBuilder()));
     }
 

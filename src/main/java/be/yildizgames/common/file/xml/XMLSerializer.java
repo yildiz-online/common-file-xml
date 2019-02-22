@@ -24,6 +24,7 @@
 package be.yildizgames.common.file.xml;
 
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.file.Serializer;
 import be.yildizgames.common.file.exception.FileCorruptionException;
 import be.yildizgames.common.file.exception.FileCreationException;
@@ -58,6 +59,7 @@ public final class XMLSerializer<T> implements Serializer<T> {
      */
     public XMLSerializer(final Path xmlFile) {
         super();
+        ImplementationException.throwForNull(xmlFile);
         this.file = xmlFile;
     }
 
