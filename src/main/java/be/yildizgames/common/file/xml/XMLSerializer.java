@@ -113,5 +113,4 @@ public final class XMLSerializer<T> implements Serializer<T> {
             throw new FileCreationException(e);
         }
     }
-
 }

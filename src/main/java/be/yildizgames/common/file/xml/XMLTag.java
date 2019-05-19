@@ -51,5 +51,4 @@ public abstract class XMLTag {
     }
 
     public abstract String generate(final StringBuilder builder);
-
 }

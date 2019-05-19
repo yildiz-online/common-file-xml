@@ -82,5 +82,4 @@ public final class XMLValueTag extends XMLTag {
         builder.append(">");
         return builder.toString();
     }
-
 }

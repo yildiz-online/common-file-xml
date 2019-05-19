@@ -51,4 +51,5 @@ public class DummyXml {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

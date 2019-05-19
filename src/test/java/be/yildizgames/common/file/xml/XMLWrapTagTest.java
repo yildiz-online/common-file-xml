@@ -56,4 +56,3 @@ public class XMLWrapTagTest {
         assertThrows(ImplementationException.class, () -> new XMLWrapTag(null));
     }
 }
-

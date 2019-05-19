@@ -123,5 +123,4 @@ public final class XMLValueTagTest {
     public void testXMLValueTagValue5() {
         assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a\"a"));
     }
-
 }

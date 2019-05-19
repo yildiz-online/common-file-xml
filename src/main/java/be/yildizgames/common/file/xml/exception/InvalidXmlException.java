@@ -40,4 +40,5 @@ public class InvalidXmlException extends TechnicalException {
     public InvalidXmlException(String s) {
         super(s);
     }
+
 }

@@ -55,5 +55,4 @@ public class XMLWrapTag extends XMLTag {
         builder.append(">");
         return builder.toString();
     }
-
 }

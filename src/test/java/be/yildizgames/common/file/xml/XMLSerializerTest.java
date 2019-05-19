@@ -84,5 +84,4 @@ public class XMLSerializerTest {
             Assertions.assertTrue(Files.size(file) > 0);
         }
     }
-
 }
