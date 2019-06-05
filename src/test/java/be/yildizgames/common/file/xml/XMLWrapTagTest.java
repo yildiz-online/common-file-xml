@@ -25,7 +25,6 @@
 package be.yildizgames.common.file.xml;
 
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,6 +52,6 @@ public class XMLWrapTagTest {
     public void testXMLWrapTag() {
         XMLWrapTag tag = new XMLWrapTag("name");
         assertEquals("name", tag.getName());
-        assertThrows(ImplementationException.class, () -> new XMLWrapTag(null));
+        assertThrows(NullPointerException.class, () -> new XMLWrapTag(null));
     }
 }

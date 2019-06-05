@@ -24,11 +24,7 @@
 package be.yildizgames.common.file.xml;
 
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.file.Serializer;
-import be.yildizgames.common.file.exception.FileCorruptionException;
-import be.yildizgames.common.file.exception.FileCreationException;
-import be.yildizgames.common.file.exception.FileMissingException;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -38,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * Use XML to serialize and deserialize objects.
@@ -59,7 +56,7 @@ public final class XMLSerializer<T> implements Serializer<T> {
      */
     public XMLSerializer(final Path xmlFile) {
         super();
-        ImplementationException.throwForNull(xmlFile);
+        Objects.requireNonNull(xmlFile);
         this.file = xmlFile;
     }
 
@@ -67,7 +64,7 @@ public final class XMLSerializer<T> implements Serializer<T> {
      * Throw an exception with file not found.
      */
     private void fileNotFound() {
-        throw new FileMissingException(this.file + "was not found");
+        throw new IllegalStateException(this.file + "was not found");
     }
 
     /**
@@ -87,11 +84,11 @@ public final class XMLSerializer<T> implements Serializer<T> {
         } catch (FileNotFoundException e) {
             this.fileNotFound();
         } catch (IOException e) {
-            throw new FileCorruptionException("XML configuration file corrupted.");
+            throw new IllegalStateException("XML configuration file corrupted.");
         }
         try (XMLDecoder decode = new XMLDecoder(fis)) {
             decode.setExceptionListener(e -> {
-                throw new FileCorruptionException("XML configuration file corrupted.");
+                throw new IllegalStateException("XML configuration file corrupted.");
             });
             return (T) decode.readObject();
         }
@@ -106,11 +103,11 @@ public final class XMLSerializer<T> implements Serializer<T> {
     public void writeToFile(final T o) {
         try (OutputStream fos = Files.newOutputStream(this.file)) {
             try (XMLEncoder encoder = new XMLEncoder(fos)) {
-                encoder.setExceptionListener(FileCreationException::new);
+                encoder.setExceptionListener(IllegalStateException::new);
                 encoder.writeObject(o);
             }
         } catch (IOException e) {
-            throw new FileCreationException(e);
+            throw new IllegalStateException(e);
         }
     }
 }

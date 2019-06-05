@@ -26,8 +26,6 @@
 
 package be.yildizgames.common.file.xml;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.file.exception.FileMissingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -47,7 +45,7 @@ public class XMLSerializerTest {
 
     @Test
     public void withNullParameter() {
-        Assertions.assertThrows(ImplementationException.class, () -> new XMLSerializer(null));
+        Assertions.assertThrows(NullPointerException.class, () -> new XMLSerializer(null));
     }
 
     @Nested
@@ -67,7 +65,7 @@ public class XMLSerializerTest {
         @Test
         public void fileNotExisting() {
             XMLSerializer<DummyXml> serializer = new XMLSerializer<>(Paths.get("notexists.xml"));
-            Assertions.assertThrows(FileMissingException.class, () -> serializer.readFromFile());
+            Assertions.assertThrows(IllegalStateException.class, () -> serializer.readFromFile());
         }
 
     }

@@ -23,8 +23,6 @@
 
 package be.yildizgames.common.file.xml;
 
-import be.yildizgames.common.file.exception.FileCorruptionException;
-import be.yildizgames.common.file.xml.exception.InvalidXmlException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -65,7 +63,7 @@ public final class XMLParser {
         try {
             XMLParser.documentFactory = XMLParser.factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            throw new FileCorruptionException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -86,7 +84,7 @@ public final class XMLParser {
         try {
             return XMLParser.documentFactory.parse(file.toFile());
         } catch (SAXException | IOException e) {
-            throw new FileCorruptionException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -108,7 +106,7 @@ public final class XMLParser {
             validator.validate(new DOMSource(doc));
             return doc;
         } catch (SAXException | IOException e) {
-            throw new FileCorruptionException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -122,7 +120,7 @@ public final class XMLParser {
         try {
             return XMLParser.documentFactory.parse(new InputSource(new StringReader(doc)));
         } catch (SAXException | IOException e) {
-            throw new InvalidXmlException(e);
+            throw new IllegalStateException(e);
         }
     }
 

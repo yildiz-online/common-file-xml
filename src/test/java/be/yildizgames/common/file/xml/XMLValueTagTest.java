@@ -25,8 +25,6 @@
 package be.yildizgames.common.file.xml;
 
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.file.exception.FileCorruptionException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,61 +64,61 @@ public final class XMLValueTagTest {
 
     @Test
     public void testXMLValueTagName1() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a<a", "value"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("a<a", "value"));
     }
 
     @Test
     public void testXMLValueTagName2() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a>a", "value"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("a>a", "value"));
     }
 
     @Test
     public void testXMLValueTagName3() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a&a", "value"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("a&a", "value"));
     }
 
     @Test
     public void testXMLValueTagName4() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a'a", "value"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("a'a", "value"));
     }
 
     @Test
     public void testXMLValueTagName5() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("a\"a", "value"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("a\"a", "value"));
     }
 
     @Test
     public void testXMLValueTagNameNull() {
-        assertThrows(ImplementationException.class, () -> new XMLValueTag(null, "value"));
+        assertThrows(NullPointerException.class, () -> new XMLValueTag(null, "value"));
     }
 
     @Test
     public void testXMLValueTagValue() {
-        assertThrows(ImplementationException.class, () -> new XMLValueTag("name", null));
+        assertThrows(NullPointerException.class, () -> new XMLValueTag("name", null));
     }
 
     @Test
     public void testXMLValueTagValue1() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a<a"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a<a"));
     }
 
     @Test
     public void testXMLValueTagValue2() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a>a"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a>a"));
     }
 
     @Test
     public void testXMLValueTagValue3() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a&a"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a&a"));
     }
 
     @Test
     public void testXMLValueTagValue4() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a'a"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a'a"));
     }
 
     @Test
     public void testXMLValueTagValue5() {
-        assertThrows(FileCorruptionException.class, () -> new XMLValueTag("name", "a\"a"));
+        assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a\"a"));
     }
 }

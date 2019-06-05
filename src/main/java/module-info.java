@@ -25,7 +25,6 @@ module be.yildizgames.common.file.xml {
     requires java.desktop;
 
     requires be.yildizgames.common.file;
-    requires be.yildizgames.common.exception;
 
     exports be.yildizgames.common.file.xml;
 }
