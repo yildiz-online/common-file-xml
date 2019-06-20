@@ -65,7 +65,7 @@ public class XMLSerializerTest {
         @Test
         public void fileNotExisting() {
             XMLSerializer<DummyXml> serializer = new XMLSerializer<>(Paths.get("notexists.xml"));
-            Assertions.assertThrows(IllegalStateException.class, () -> serializer.readFromFile());
+            Assertions.assertThrows(IllegalStateException.class, serializer::readFromFile);
         }
 
     }
