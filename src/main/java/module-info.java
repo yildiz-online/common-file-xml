@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-module be.yildizgames.common.file.xml {
+open module be.yildizgames.common.file.xml {
     requires java.desktop;
 
     requires be.yildizgames.common.file;
