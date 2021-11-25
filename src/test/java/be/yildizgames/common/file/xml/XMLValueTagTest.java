@@ -33,92 +33,92 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-public final class XMLValueTagTest {
+final class XMLValueTagTest {
 
     @Test
-    public void testGenerate() {
+    void testGenerate() {
         XMLTag tag = new XMLValueTag("a name", "a value");
         String result = "<a name>a value</a name>";
         assertEquals(result, tag.generate());
     }
 
     @Test
-    public void testGenerateLong() {
+    void testGenerateLong() {
         XMLTag tag = new XMLValueTag("a name", "123");
         String result = "<a name>123</a name>";
         assertEquals(result, tag.generate());
     }
 
     @Test
-    public void testGenerateObject() {
+    void testGenerateObject() {
         XMLTag tag = new XMLValueTag("a name", Boolean.TRUE);
         String result = "<a name>true</a name>";
         assertEquals(result, tag.generate(new StringBuilder()));
     }
 
     @Test
-    public void testXMLValueTagName() {
+    void testXMLValueTagName() {
         XMLTag tag = new XMLValueTag("name", "value");
         assertEquals("name", tag.getName());
     }
 
     @Test
-    public void testXMLValueTagName1() {
+    void testXMLValueTagName1() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("a<a", "value"));
     }
 
     @Test
-    public void testXMLValueTagName2() {
+    void testXMLValueTagName2() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("a>a", "value"));
     }
 
     @Test
-    public void testXMLValueTagName3() {
+    void testXMLValueTagName3() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("a&a", "value"));
     }
 
     @Test
-    public void testXMLValueTagName4() {
+    void testXMLValueTagName4() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("a'a", "value"));
     }
 
     @Test
-    public void testXMLValueTagName5() {
+    void testXMLValueTagName5() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("a\"a", "value"));
     }
 
     @Test
-    public void testXMLValueTagNameNull() {
+    void testXMLValueTagNameNull() {
         assertThrows(NullPointerException.class, () -> new XMLValueTag(null, "value"));
     }
 
     @Test
-    public void testXMLValueTagValue() {
+    void testXMLValueTagValue() {
         assertThrows(NullPointerException.class, () -> new XMLValueTag("name", null));
     }
 
     @Test
-    public void testXMLValueTagValue1() {
+    void testXMLValueTagValue1() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a<a"));
     }
 
     @Test
-    public void testXMLValueTagValue2() {
+    void testXMLValueTagValue2() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a>a"));
     }
 
     @Test
-    public void testXMLValueTagValue3() {
+    void testXMLValueTagValue3() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a&a"));
     }
 
     @Test
-    public void testXMLValueTagValue4() {
+    void testXMLValueTagValue4() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a'a"));
     }
 
     @Test
-    public void testXMLValueTagValue5() {
+    void testXMLValueTagValue5() {
         assertThrows(IllegalStateException.class, () -> new XMLValueTag("name", "a\"a"));
     }
 }

@@ -35,24 +35,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class XMLSerializerTest {
+class XMLSerializerTest {
 
     @Test
-    public void happyFlow() {
+    void happyFlow() {
         XMLSerializer serializer = new XMLSerializer(Paths.get("test.xml"));
         Assertions.assertNotNull(serializer);
     }
 
     @Test
-    public void withNullParameter() {
+    void withNullParameter() {
         Assertions.assertThrows(NullPointerException.class, () -> new XMLSerializer(null));
     }
 
     @Nested
-    public class ReadFromFile {
+    class ReadFromFile {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Path dir = Files.createTempDirectory("xml");
             Path file = dir.resolve("test.xml");
             XMLSerializer<DummyXml> serializer = new XMLSerializer<>(file);
@@ -63,7 +63,7 @@ public class XMLSerializerTest {
         }
 
         @Test
-        public void fileNotExisting() {
+        void fileNotExisting() {
             XMLSerializer<DummyXml> serializer = new XMLSerializer<>(Paths.get("notexists.xml"));
             Assertions.assertThrows(IllegalStateException.class, serializer::readFromFile);
         }
@@ -71,10 +71,10 @@ public class XMLSerializerTest {
     }
 
     @Nested
-    public class WriteToFile {
+    class WriteToFile {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Path dir = Files.createTempDirectory("xml");
             Path file = dir.resolve("test.xml");
             XMLSerializer<DummyXml> serializer = new XMLSerializer<>(file);
